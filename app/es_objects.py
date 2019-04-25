@@ -17,8 +17,8 @@ class EsFunctions():
         self.userloc = userloc
         self.day = day
         self.qtresult = qtresult
-        geo_query = {"sort":[{"_geo_distance":{"location": userloc,"order":"asc","unit":"km","mode":"min","distance_type":"arc"}}] \
-            ,"query":{"match":{"dia.keyword":{"query":day}}}}
+        geo_query = {"sort":[{"_geo_distance":{"location": userloc,"order":"asc","unit":"km","mode":"min",\
+            "distance_type":"arc"}}],"query":{"match":{"dia.keyword":{"query":day}}}}
         res = es.search(index="feiras-sp", body=json.dumps(geo_query), size = qtresult)
         for feira in res['hits']['hits']:
             yield feira["_source"]
