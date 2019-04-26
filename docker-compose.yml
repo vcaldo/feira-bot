@@ -21,7 +21,7 @@ services:
   bot:    
     image: feira-bot:latest
     environment:
-      - TELEGRAM_TOKEN=796249578:AAG3R0du-nJ5bCe-dW1wTLRH2dMyZdeZ4xg
+      - TELEGRAM_TOKEN=
     networks:
       - bot
 
