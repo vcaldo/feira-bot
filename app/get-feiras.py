@@ -34,9 +34,9 @@ def get_geohash(latitude,longitude):
 jsonfeiras = get_json("https://www9.prefeitura.sp.gov.br/secretarias/sdte/pesquisa/feiras/services/feiras.xml")
 
 if es.indices.exists(feira_index):
-    print("Index "+ feira_index+ " exists, updating info.")
+    print("Index " +feira_index+ " already exists, updating index information.")
 else:
-    print("Creating index "+feira_index)
+    print("Creating index " +feira_index+ ".")
     with open("mappings.json", "r") as f:
         esmappings = json.load(f)
     es.indices.create(index=feira_index, body=esmappings)

@@ -1,5 +1,3 @@
 #!/bin/bash
-sleep 20
-echo "`date +\"%D %T\"` - feira-bot - Loading feira data to elasticsearch"
-python /app/get-feiras.py &&
-echo "`date +\"%D %T\"` - feira-bot - Data loaded sucessful."
+/app/wait-for-elasticsearch.sh http://elasticsearch:9200 -- python /app/get-feiras.py 
+python /app/feira-bot.py
