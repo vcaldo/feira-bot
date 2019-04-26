@@ -4,17 +4,18 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
     container_name: elasticsearch
     restart: always
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1    
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
       - xpack.monitoring.enabled=false
       - xpack.watcher.enabled=false
       - bootstrap.memory_lock=true
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1    
+      - ES_HEAP_SIZE=256m
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
       - /home/vini/storage/esdata:/usr/share/elasticsearch/data
     networks:
