@@ -8,4 +8,4 @@ ENV TZ=America/Sao_Paulo
 COPY app/ /app
 WORKDIR /app
 RUN pip install -r requirements.txt
-ENTRYPOINT /app/entrypoint.sh
+ENTRYPOINT [ "/app/entrypoint.sh" ]

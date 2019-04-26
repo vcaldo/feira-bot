@@ -1,9 +1,7 @@
-version : '3.7'
+version : '2'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
-    container_name: elasticsearch
-    restart: always
     ulimits:
       memlock:
         soft: -1
@@ -17,15 +15,11 @@ services:
       - ES_HEAP_SIZE=256m
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
-      - /home/vini/storage/esdata:/usr/share/elasticsearch/data
+      - /home/rancher/esdata:/usr/share/elasticsearch/data
     networks:
       - bot
   bot:    
-    build: .
-    container_name: feira-bot
-    restart: always
-    depends_on:
-      - elasticsearch
+    image: feira-bot:latest
     environment:
       - TELEGRAM_TOKEN=796249578:AAG3R0du-nJ5bCe-dW1wTLRH2dMyZdeZ4xg
     networks:
