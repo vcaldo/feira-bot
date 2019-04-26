@@ -5,8 +5,8 @@ import simplejson as json
 from elasticsearch import Elasticsearch
 import geohash2
 import os
-import uuid
 
+feira_index = "feiras-sp"
 if not os.environ.get("ES_HOST"):
     es_host = "elasticsearch"
 else:
@@ -33,12 +33,17 @@ def get_geohash(latitude,longitude):
 
 jsonfeiras = get_json("https://www9.prefeitura.sp.gov.br/secretarias/sdte/pesquisa/feiras/services/feiras.xml")
 
-#for x in range(len(jsonfeiras)):
+if es.indices.exists(feira_index):
+    print("Index "+ feira_index+ " exists, updating info.")
+else:
+    print("Creating index "+feira_index)
+    with open("mappings.json", "r") as f:
+        esmappings = json.load(f)
+    es.indices.create(index=feira_index, body=esmappings)
+
 for feira in jsonfeiras:
-    #print(x)
-    #eira = jsonfeiras[x]
     geohash = get_geohash(feira["latitude"], feira["longitude"])
     dayofweek = decode_weekday(feira["numero"])
     feira.update({"location" : geohash})
     feira.update({"dia" : dayofweek})
-    es.index(index="feiras-sp",ignore=400, id=feira["numero"], body=feira)   
+    es.index(index=feira_index, ignore=400, id=feira["numero"], body=feira)
