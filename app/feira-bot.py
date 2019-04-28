@@ -36,7 +36,7 @@ def loc (update, context):
             value["logadouro"].title(), value["bairro"].title(), value["feirantes"], float(value["metragem"].replace(',','.')))
         context.bot.sendLocation(chat_id=update.message.chat_id, latitude=latlonfeira[0], longitude=latlonfeira[1])
         context.bot.send_message(chat_id=update.message.chat_id, text=msg)
-    EsFunctions().log_msg(update)
+    EsFunctions().log_call(update, context)
 
 loc_handler = MessageHandler(Filters.location, loc)
 dispatcher.add_handler(loc_handler)

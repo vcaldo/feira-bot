@@ -23,7 +23,10 @@ class EsFunctions():
         for feira in res['hits']['hits']:
             yield feira["_source"]
 
-    def log_call(self, update):
+    def log_call(self, update, context):
         self.update = update
-        msgjson = update.to_json()
-        print(type(msgjson))
+        self.context = context
+        msgjson = json.loads(update.to_json())
+        contextjson = json.loads(context.bot.to_json())
+        log =  { "bot": contextjson, "context": msgjson }
+        es.index(index="feiras-logs", ignore=400, body=log)
