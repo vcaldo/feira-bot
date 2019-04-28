@@ -10,8 +10,6 @@ from geopy import distance
 import simplejson as json
 import os
 
-#today = calendar.day_name[date.today().weekday()]
-#today = "Tuesday" if today == "Monday" else today
 qtfeiras = 3
 updater = Updater(token=os.environ["TELEGRAM_TOKEN"], use_context=True)
 dispatcher = updater.dispatcher
@@ -28,6 +26,8 @@ def loc (update, context):
     latlonuser = (float(update.message.location["latitude"]),float(update.message.location["longitude"]))
     locationuser = {"geohash" : geohashuser, "latlon" : latlonuser}
     msghead = "As {} mais próximas {}:".format(qtfeiras, day_trans(today))
+    today = calendar.day_name[date.today().weekday()]
+    today = "Tuesday" if today == "Monday" else today
     context.bot.send_message(chat_id=update.message.chat_id, text=msghead)
     feiras = EsFunctions().get_closest(locationuser["geohash"], today, qtfeiras)
     for value in feiras:
