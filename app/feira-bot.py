@@ -22,12 +22,12 @@ def day_trans(day):
     return daymap[day]
 
 def loc (update, context):
+    today = calendar.day_name[date.today().weekday()]
+    today = "Tuesday" if today == "Monday" else today
     geohashuser = geohash2.encode(float(update.message.location["latitude"]),float(update.message.location["longitude"]))
     latlonuser = (float(update.message.location["latitude"]),float(update.message.location["longitude"]))
     locationuser = {"geohash" : geohashuser, "latlon" : latlonuser}
     msghead = "As {} mais próximas {}:".format(qtfeiras, day_trans(today))
-    today = calendar.day_name[date.today().weekday()]
-    today = "Tuesday" if today == "Monday" else today
     context.bot.send_message(chat_id=update.message.chat_id, text=msghead)
     feiras = EsFunctions().get_closest(locationuser["geohash"], today, qtfeiras)
     for value in feiras:

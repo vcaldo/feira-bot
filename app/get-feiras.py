@@ -6,7 +6,6 @@ from elasticsearch import Elasticsearch
 import geohash2
 import os
 
-feira_index = "feiras-sp"
 if not os.environ.get("ES_HOST"):
     es_host = "elasticsearch"
 else:
@@ -33,6 +32,7 @@ def get_geohash(latitude,longitude):
 
 jsonfeiras = get_json("https://www9.prefeitura.sp.gov.br/secretarias/sdte/pesquisa/feiras/services/feiras.xml")
 
+feira_index = "feiras-sp"
 if es.indices.exists(feira_index):
     print("Index " +feira_index+ " already exists, updating index information.")
 else:
