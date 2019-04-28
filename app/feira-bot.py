@@ -10,8 +10,8 @@ from geopy import distance
 import simplejson as json
 import os
 
-today = calendar.day_name[date.today().weekday()]
-today = "Tuesday" if today == "Monday" else today
+#today = calendar.day_name[date.today().weekday()]
+#today = "Tuesday" if today == "Monday" else today
 qtfeiras = 3
 updater = Updater(token=os.environ["TELEGRAM_TOKEN"], use_context=True)
 dispatcher = updater.dispatcher
