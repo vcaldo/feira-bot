@@ -28,5 +28,5 @@ class EsFunctions():
         self.context = context
         msgjson = json.loads(update.to_json())
         contextjson = json.loads(context.bot.to_json())
-        log =  { "bot": contextjson, "context": msgjson }
+        log =  {"bot": contextjson, "context": msgjson}
         es.index(index="feiras-logs", body=log)
