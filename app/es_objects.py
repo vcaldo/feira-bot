@@ -22,3 +22,8 @@ class EsFunctions():
         res = es.search(index="feiras-sp", body=json.dumps(geo_query), size = qtresult)
         for feira in res['hits']['hits']:
             yield feira["_source"]
+
+    def log_call(self, update):
+        self.update = update
+        msgjson = update.to_json()
+        print(type(msgjson))
