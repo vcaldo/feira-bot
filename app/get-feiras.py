@@ -37,7 +37,7 @@ if es.indices.exists(feira_index):
     print("Index " +feira_index+ " already exists, updating index information.")
 else:
     print("Creating index " +feira_index+ ".")
-    with open("mappings.json", "r") as f:
+    with open("mappings-feiras.json", "r") as f:
         esmappings = json.load(f)
     es.indices.create(index=feira_index, body=esmappings)
 
