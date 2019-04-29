@@ -5,7 +5,6 @@ import geohash2
 from es_objects import EsFunctions
 from datetime import date
 import calendar
-import locale
 from geopy import distance
 import simplejson as json
 import os
@@ -16,10 +15,8 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def day_trans(day):
-    locale.setlocale(locale.LC_ALL, "pt_BR.UTF8")
-    daymap = {"Monday" : calendar.day_name[0], "Tuesday": calendar.day_name[1], "Wednesday" : calendar.day_name[2], \
-        "Thursday" : calendar.day_name[3], "Friday" : calendar.day_name[4], "Saturday" : calendar.day_name[5], "Sunday" : calendar.day_name[6]}
-    locale.setlocale(locale.LC_ALL, "en_US.UTF8")
+    daymap = {"Monday" : "segunda-feira", "Tuesday": "terça-feira", "Wednesday" : "quarta-feira", \
+        "Thursday" : "quinta-feira", "Friday" : "sexta-feira", "Saturday" : "sábado", "Sunday" : "domingo"}
     return daymap[day]
 
 def loc (update, context):
