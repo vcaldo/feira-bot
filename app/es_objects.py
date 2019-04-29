@@ -2,6 +2,7 @@
 from elasticsearch import Elasticsearch
 import simplejson as json
 import os
+import time
 
 if not os.environ.get("ES_HOST"):
     es_host = "elasticsearch"
@@ -28,5 +29,5 @@ class EsFunctions():
         self.context = context
         msgjson = json.loads(update.to_json())
         contextjson = json.loads(context.bot.to_json())
-        log =  {"bot": contextjson, "context": msgjson}
-        es.index(index="feiras-logs", body=log)
+        log =  {"bot": contextjson, "context": msgjson, "date": int(time.time())}
+        es.index(index="feiras-logs", ignore=400, body=log)
