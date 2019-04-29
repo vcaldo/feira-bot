@@ -12,5 +12,5 @@ docker run --detach --name elasticsearch --restart unless-stopped --volume /home
 ```
 ### Start bot container
 ```
-docker run --detach --name bot --restart unless-stopped --network bot -e TELEGRAM_TOKEN=your_telegram_bot_token docker.io/vcaldo/feira-bot:dev
+docker run --detach --name bot --restart unless-stopped --network bot -e TELEGRAM_TOKEN=your_telegram_bot_token docker.io/vcaldo/feira-bot:latest
 ```
