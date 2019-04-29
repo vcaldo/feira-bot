@@ -20,7 +20,6 @@ def day_trans(day):
     daymap = {"Monday" : calendar.day_name[0], "Tuesday": calendar.day_name[1], "Wednesday" : calendar.day_name[2], \
         "Thursday" : calendar.day_name[3], "Friday" : calendar.day_name[4], "Saturday" : calendar.day_name[5], "Sunday" : calendar.day_name[6]}
     locale.setlocale(locale.LC_ALL, "en_US.UTF8")
-    
     return daymap[day]
 
 def loc (update, context):
