@@ -1,38 +1,9 @@
 {
-  "mappings" : {
-    "properties" : {
-      "context" : {
-        "properties" : {
-          "_effective_message" : {
-            "properties" : {
-              "date" : {
-                "type" : "date"
-              },
-              "forward_date" : {
-                "type" : "date"
-              },
-              "location" : {
-                "type" : "geo_point"
-              }
-            }
-          },
-          "message" : {
-            "properties" : {
-              "date" : {
-                "type" : "date"
-              },
-              "location" : {
-                "type" : "geo_point"
-              },
-              "message_id" : {
-                "type" : "integer"
-              }
-            }
-          },
-          "update_id" : {
-            "type" : "integer"
-          }
-        }
+  "mappings": {
+    "properties": {
+      "date": {
+        "type": "date",
+        "format": "epoch_second"
       }
     }
   }

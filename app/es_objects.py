@@ -24,10 +24,19 @@ class EsFunctions():
         for feira in res['hits']['hits']:
             yield feira["_source"]
 
+    def check_index(self, indice, mapping):
+        self.indice = indice
+        self.mapping = mapping
+        if not es.indices.exists(self.indice):
+            with open(self.mapping, "r") as f:
+                esmappings = json.load(f)
+            es.indices.create(index=self.indice, body=esmappings)
+
     def log_call(self, update, context):
         self.update = update
         self.context = context
         msgjson = json.loads(update.to_json())
         contextjson = json.loads(context.bot.to_json())
         log =  {"bot": contextjson, "context": msgjson, "date": int(time.time())}
+        self.check_index("feiras-logs", "mappings-logs.json")
         es.index(index="feiras-logs", ignore=400, body=log)
