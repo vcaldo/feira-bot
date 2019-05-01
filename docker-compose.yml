@@ -1,19 +1,13 @@
-version : '2'
+version : '3'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1    
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
       - xpack.monitoring.enabled=false
       - xpack.watcher.enabled=false
-      - bootstrap.memory_lock=true
-      - ES_HEAP_SIZE=256m
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "ES_JAVA_OPTS=-Xms200m -Xmx200m"
     volumes:
       - /home/rancher/esdata:/usr/share/elasticsearch/data
     networks:
@@ -24,6 +18,14 @@ services:
       - TELEGRAM_TOKEN=
     networks:
       - bot
-
+  portainer:
+    image: portainer
+    labels:
+      - "traefik.frontend.rule=Host:randy.bot.nu/portainer"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data portainer/portainer
+    ports:
+      9000:9000  
 networks:
   bot:
