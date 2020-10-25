@@ -1,5 +1,4 @@
-FROM python:3.7.0-slim-stretch
-RUN apt-get update && apt-get install -y curl 
+FROM python:3.9-buster
 COPY app/ /app
 WORKDIR /app
 RUN pip install -r requirements.txt

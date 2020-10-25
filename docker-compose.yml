@@ -1,31 +1,15 @@
-version : '3'
+version : '2'
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - xpack.monitoring.enabled=false
-      - xpack.watcher.enabled=false
-      - "ES_JAVA_OPTS=-Xms200m -Xmx200m"
-    volumes:
-      - /home/rancher/esdata:/usr/share/elasticsearch/data
-    networks:
-      - bot
   bot:    
     image: feira-bot:latest
-    environment:
-      - TELEGRAM_TOKEN=
+    container_name: feira-bot
+    hostname: feira-bot
+    restart: always
+    env_file:
+      - .env
     networks:
-      - bot
-  portainer:
-    image: portainer
-    labels:
-      - "traefik.frontend.rule=Host:randy.bot.nu/portainer"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data portainer/portainer
-    ports:
-      9000:9000  
+      - elasticsearch
+
 networks:
-  bot:
+  elasticsearch:
+    external: true
